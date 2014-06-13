@@ -20,7 +20,7 @@ include_recipe "java"
 include_recipe "runit"
 
 
-install_dir = "#{node['storm']['root_dir']}/storm-#{node['storm']['version']}"
+install_dir = "#{node['storm']['root_dir']}/apache-storm-#{node['storm']['version']}"
 
 node.set['storm']['lib_dir'] = "#{install_dir}/lib"
 node.set['storm']['conf_dir'] = "#{install_dir}/conf"
