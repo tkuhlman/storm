@@ -28,7 +28,7 @@ node.set['storm']['bin_dir'] = "#{install_dir}/bin"
 node.set['storm']['install_dir'] = install_dir
 
 # install dependency packages
-%w{unzip python zeromq jzmq}.each do |pkg|
+%w{unzip python}.each do |pkg|
   package pkg do
     action :install
   end
@@ -88,8 +88,8 @@ end
 end
 
 # download storm
-remote_file "#{Chef::Config[:file_cache_path]}/storm-#{node[:storm][:version]}.tar.gz" do
-  source "#{node['storm']['download_url']}/storm-#{node['storm']['version']}.tar.gz"
+remote_file "#{Chef::Config[:file_cache_path]}/apache-storm-#{node[:storm][:version]}.tar.gz" do
+  source "#{node['storm']['download_url']}/apache-storm-#{node['storm']['version']}.tar.gz"
   owner  "storm"
   group  "storm"
   mode   00744
@@ -98,11 +98,9 @@ end
 
 # uncompress the application tarball into the install directory
 execute "tar" do
-  user    "storm"
-  group   "storm"
   creates node['storm']['lib_dir']
   cwd     node['storm']['root_dir']
-  command "tar zxvf #{Chef::Config[:file_cache_path]}/storm-#{node['storm']['version']}.tar.gz"
+  command "tar zxvf #{Chef::Config[:file_cache_path]}/apache-storm-#{node['storm']['version']}.tar.gz"
 end
 
 # create a link from the specific version to a generic current folder

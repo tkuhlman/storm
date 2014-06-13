@@ -6,7 +6,8 @@
 # Copyright 2012, Webtrends Inc.
 #
 
-default['storm']['version'] = "0.8.2"
+default['storm']['version'] = "0.9.1-incubating"
+default['storm']['download_url'] = "http://apache.claz.org/incubator/storm/apache-storm-0.9.1-incubating/"
 default['storm']['root_dir'] = "/opt/storm"
 default['storm']['log_dir'] = "/var/log/storm"
 default['storm']['cluster_role'] = ""
