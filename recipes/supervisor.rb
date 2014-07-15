@@ -32,13 +32,15 @@ java_home = node['java']['java_home']
   end
 
   # runit service
-  runit_service "supervisor" do
-    service_name "supervisor"
-    options({
-      :install_dir => "#{node['storm']['root_dir']}/current",
-      :log_dir => node['storm']['log_dir'],
-      :user => "storm"
-    })
+  if node['storm']['enable']
+    runit_service "supervisor" do
+      service_name "supervisor"
+      options({
+        :install_dir => "#{node['storm']['root_dir']}/current",
+        :log_dir => node['storm']['log_dir'],
+        :user => "storm"
+      })
+    end
   end
 
 execute "reload_supervisor" do

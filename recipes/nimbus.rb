@@ -34,13 +34,15 @@ java_home = node['java']['java_home']
     })
   end
 
-  # runit service
-  runit_service daemon do
-    options({
-      :install_dir => node['storm']['install_dir'],
-      :log_dir => node['storm']['log_dir'],
-      :user => "storm"
-    })
+  if node['storm']['enable']
+    # runit service
+    runit_service daemon do
+      options({
+        :install_dir => node['storm']['install_dir'],
+        :log_dir => node['storm']['log_dir'],
+        :user => "storm"
+      })
+    end
   end
 end
 

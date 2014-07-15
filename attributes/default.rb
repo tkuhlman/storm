@@ -11,6 +11,7 @@ default['storm']['download_url'] = "http://apache.claz.org/incubator/storm/apach
 default['storm']['root_dir'] = "/opt/storm"
 default['storm']['log_dir'] = "/var/log/storm"
 default['storm']['cluster_role'] = ""
+default['storm']['enable'] = true  # By default the daemons are enabled
 
 # general storm attributes
 default['storm']['java_lib_path'] = "/usr/local/lib:/opt/local/lib:/usr/lib"
