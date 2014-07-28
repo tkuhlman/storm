@@ -20,16 +20,6 @@ Usage
 This recipe relies on two setup components that need to be noted as they are not used
 in many (or any) community cookbooks.
 
-Role Based Cluster Setup:
-This cookbook relies on a cluster identification role to allow more than one storm cluster
-to run in a single Chef environment, while not breaking Chef search.  Create a role with
-a name of your choosing.  The role may be left empty or you may use it to apply the your
-application's topology and all necessary JARs within your topology.  You will need to
-specify the name of this role using the node attribute ['storm']['cluster_role'], which
-is empty by default.  You will need to apply this cluster role to both supervisor and
-the nimbus/UI node in your cluster
-
-Chef Solo:
-For chef solo role identification will not work instead set these attributes:
+Cluster Setup:
 - `node[:storm][:nimbus][:host]` with the fqdn/ip of the nimbus host
 - `node[:storm][:zookeeper][:quorum]` with an array of fqdn/ips of the zookeeper hosts

@@ -34,32 +34,6 @@ node.set['storm']['install_dir'] = install_dir
   end
 end
 
-#locate the nimbus for this storm cluster
-nimbus_host = Array.new
-if node.recipes.include?("storm::nimbus")
-  nimbus_host = node
-else
-  begin
-    nimbus_host = search(:node, "role:storm_nimbus AND role:#{node['storm']['cluster_role']} AND chef_environment:#{node.chef_environment}").first
-  rescue Exception => e
-    # search doesn't work in OpsWorks or Chef Solo
-    Chef::Log.info("problem with search: #{e.message} using value found in node: #{node[:storm][:nimbus][:host]}")
-    nimbus_host = node[:storm][:nimbus][:host]
-  end
-end
-
-# search for zookeeper servers
-zookeeper_quorum = Array.new
-begin
-  search(:node, "role:zookeeper AND chef_environment:#{node.chef_environment}").each do |n|
-    zookeeper_quorum << n[:fqdn]
-  end
-rescue Exception => e
-  # search doesn't work in OpsWorks or Chef Solo
-  Chef::Log.info("problem finding zookeeper via search: \"#{e.message}\" using value found in node: #{node[:storm][:zookeeper][:quorum]}")
-  zookeeper_quorum = node[:storm][:zookeeper][:quorum]
-end
-
 # setup storm group
 group "storm"
 
@@ -113,8 +87,8 @@ template "#{node['storm']['conf_dir']}/storm.yaml" do
   source "storm.yaml.erb"
   mode 00644
   variables(
-    :nimbus => nimbus_host,
-    :zookeeper_quorum => zookeeper_quorum
+    :nimbus => node[:storm][:nimbus][:host],
+    :zookeeper_quorum => node[:storm][:zookeeper][:quorum]
   )
 end
 
