@@ -62,7 +62,7 @@ end
 end
 
 # download storm
-remote_file "#{Chef::Config[:file_cache_path]}/apache-storm-#{node[:storm][:version]}.tar.gz" do
+remote_file "#{Chef::Config[:file_cache_path]}/apache-storm-#{node['storm']['version']}.tar.gz" do
   source "#{node['storm']['download_url']}/apache-storm-#{node['storm']['version']}.tar.gz"
   owner  "storm"
   group  "storm"
@@ -87,8 +87,8 @@ template "#{node['storm']['conf_dir']}/storm.yaml" do
   source "storm.yaml.erb"
   mode 00644
   variables(
-    :nimbus => node[:storm][:nimbus][:host],
-    :zookeeper_quorum => node[:storm][:zookeeper][:quorum]
+    :nimbus => node['storm']['nimbus']['host'],
+    :zookeeper_quorum => node['storm']['zookeeper']['quorum']
   )
 end
 
